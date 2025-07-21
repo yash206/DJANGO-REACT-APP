@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import api from "../api";
-import "../styles/Form.css"
+import "../styles/Form.css";
 import React, { useState } from "react";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import LoadingIndicator from "./LoadingIndicator";
@@ -36,28 +36,38 @@ export default function Form({ route, method }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <h1>{name}</h1>
-
-      <input
-        className="form-input"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Enter Username"
-      />
-
-      <input
-        className="form-input"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter Password"
-      />
-      {loading && <LoadingIndicator />}
-      <button className="form-button" type="submit">
-        {name}
+    <>
+      <button
+        onClick={() => {
+          if (name === "Login") navigate("/register/");
+          if (name === "Register") navigate("/login/");
+        }}
+      >
+        {name === "Login" ? "Register" : "Login"}
       </button>
-    </form>
+      <form onSubmit={handleSubmit} className="form-container">
+        <h1>{name}</h1>
+
+        <input
+          className="form-input"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter Username"
+        />
+
+        <input
+          className="form-input"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter Password"
+        />
+        {loading && <LoadingIndicator />}
+        <button className="form-button" type="submit">
+          {name}
+        </button>
+      </form>
+    </>
   );
 }

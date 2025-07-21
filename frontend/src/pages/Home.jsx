@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import api from "../api";
 import Note from "../components/Note";
 import "../styles/Home.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getNotes();
@@ -53,7 +55,16 @@ export default function Home() {
   return (
     <div>
       <div>
+        <button
+          onClick={() => {
+            navigate("/login/");
+            localStorage.clear();
+          }}
+        >
+          Logout
+        </button>
         <h2>Notes</h2>
+        {notes.length === 0 ? <h4>Add your first Note!!!</h4> : ""}
         {notes.map((note) => (
           <Note note={note} onDelete={deleteNote} key={note.id} />
         ))}
