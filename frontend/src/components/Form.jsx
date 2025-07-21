@@ -3,6 +3,7 @@ import api from "../api";
 import "../styles/Form.css"
 import React, { useState } from "react";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import LoadingIndicator from "./LoadingIndicator";
 
 // route prop will tell which route to follow either token or register
 // method prop will tell what to do either login or register
@@ -53,7 +54,7 @@ export default function Form({ route, method }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter Password"
       />
-
+      {loading && <LoadingIndicator />}
       <button className="form-button" type="submit">
         {name}
       </button>
